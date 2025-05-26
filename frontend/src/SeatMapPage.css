@@ -1,51 +1,343 @@
+/* Container principal cu fundal elegant */
 .seat-map-container {
     text-align: center;
-    padding: 2rem;
-    font-family: 'Segoe UI', sans-serif;
+    padding: 3rem 2rem;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Particule de fundal subtile */
+.seat-map-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+            radial-gradient(circle at 25% 25%, rgba(255,255,255,0.05) 2px, transparent 2px),
+            radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 3px, transparent 3px);
+    background-size: 300px 300px, 400px 400px;
+    animation: particlesMove 60s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes particlesMove {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-20px, -20px) rotate(360deg); }
+}
+
+/* Harta locurilor cu glassmorphism */
 .seat-map {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 2rem;
-    gap: 10px;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow:
+            0 25px 50px rgba(0, 0, 0, 0.1),
+            0 0 30px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+    animation: mapAppear 0.8s ease-out;
 }
 
+@keyframes mapAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Randuri de locuri */
 .seat-row {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 12px;
+    animation: rowSlideIn 0.6s ease-out;
+    animation-fill-mode: both;
 }
 
+@keyframes rowSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.seat-row:nth-child(1) { animation-delay: 0.1s; }
+.seat-row:nth-child(2) { animation-delay: 0.2s; }
+.seat-row:nth-child(3) { animation-delay: 0.3s; }
+.seat-row:nth-child(4) { animation-delay: 0.4s; }
+.seat-row:nth-child(5) { animation-delay: 0.5s; }
+.seat-row:nth-child(6) { animation-delay: 0.6s; }
+
+/* Locuri standard cu efect elegant */
 .seat {
-    width: 35px;
-    height: 35px;
-    background-color: #ccc;
-    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 14px;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+/* Efect de strălucire pe locuri */
+.seat::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transform: rotate(45deg);
+}
+
+.seat:hover {
+    transform: translateY(-3px) scale(1.05);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.seat:hover::before {
+    opacity: 1;
+}
+
+.seat:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* Locul utilizatorului cu gradient spectaculos */
 .user-seat {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
     color: white;
+    border: 2px solid rgba(78, 205, 196, 0.5);
+    box-shadow:
+            0 8px 25px rgba(78, 205, 196, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: userSeatGlow 2s ease-in-out infinite alternate;
 }
 
+@keyframes userSeatGlow {
+    from {
+        box-shadow:
+                0 8px 25px rgba(78, 205, 196, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    to {
+        box-shadow:
+                0 12px 35px rgba(78, 205, 196, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+}
+
+.user-seat:hover {
+    background: linear-gradient(135deg, #44a08d 0%, #4ecdc4 100%);
+    transform: translateY(-5px) scale(1.1);
+    box-shadow:
+            0 15px 40px rgba(78, 205, 196, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Spațiere între secțiuni */
 .spacer {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     background-color: transparent;
+    position: relative;
 }
 
+.spacer::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent);
+    border-radius: 1px;
+}
+
+/* Scena cu design premium */
 .stage {
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #222;
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
+    padding: 15px 40px;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow:
+            0 15px 35px rgba(44, 62, 80, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    animation: stageShine 3s ease-in-out infinite;
+}
+
+@keyframes stageShine {
+    0%, 100% {
+        box-shadow:
+                0 15px 35px rgba(44, 62, 80, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow:
+                0 20px 45px rgba(44, 62, 80, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+}
+
+.stage::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.1));
+    border-radius: 55px;
+    z-index: -1;
+    animation: stageRing 4s linear infinite;
+}
+
+@keyframes stageRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.stage::after {
+    content: '🎭';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+/* Legendă pentru tipurile de locuri */
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.legend-seat {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.legend-available {
+    background: rgba(255, 255, 255, 0.8);
+    color: #4a5568;
+}
+
+.legend-selected {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: white;
+}
+
+.legend-occupied {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .seat-map-container {
+        padding: 2rem 1rem;
+    }
+
+    .seat-map {
+        padding: 30px 20px;
+        gap: 12px;
+    }
+
+    .seat-row {
+        gap: 8px;
+    }
+
+    .seat {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+
+    .stage {
+        font-size: 16px;
+        padding: 12px 30px;
+        margin-bottom: 25px;
+    }
+
+    .seat-legend {
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .legend-item {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
 }
